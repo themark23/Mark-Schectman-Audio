@@ -1,67 +1,36 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Play, Pause, Volume2 } from "lucide-react";
-
-type Track = {
-  id: string;
-  title: string;
-  duration: string;
-  category: string;
-};
-
-const tracks: Track[] = [
-  { id: "1", title: "Morning Drive Opener", duration: "1:24", category: "Radio Imaging" },
-  { id: "2", title: "Alternative Station ID", duration: "0:45", category: "Radio Imaging" },
-  { id: "3", title: "Sports Talk Intro", duration: "1:12", category: "Radio Imaging" },
-  { id: "4", title: "Smithsonian Audiobook Excerpt", duration: "2:30", category: "Voice Over" },
-  { id: "5", title: "National Auto Commercial", duration: "0:30", category: "Voice Over" },
-  { id: "6", title: "Documentary Narration", duration: "1:45", category: "Voice Over" },
-  { id: "7", title: "Corporate Gala Host Intro", duration: "2:15", category: "Emcee Highlights" },
-  { id: "8", title: "Charity Auction Call", duration: "1:50", category: "Emcee Highlights" },
-];
-
-const categories = ["All", "Radio Imaging", "Voice Over", "Emcee Highlights"];
+import { Play, Pause, Disc } from "lucide-react";
+import { audioTracks } from "@/data/audioTracks";
 
 export function AudioSamples() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [playingTrack, setPlayingTrack] = useState<string | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
   
-  // Mock audio functionality since we don't have real audio files
-  const togglePlay = (id: string) => {
-    if (playingTrack === id) {
-      setIsPlaying(!isPlaying);
-    } else {
-      setPlayingTrack(id);
-      setIsPlaying(true);
-    }
-  };
+  const categories = ["All", "Radio Imaging", "Voice Over", "Emcee Highlights", "Commercials"];
 
   const filteredTracks = activeCategory === "All" 
-    ? tracks 
-    : tracks.filter(t => t.category === activeCategory);
+    ? audioTracks 
+    : audioTracks.filter(t => t.category === activeCategory);
 
   return (
-    <section id="audio" className="py-24 bg-secondary/50 relative">
+    <section id="audio" className="py-24 bg-background relative border-y border-border/50">
       <div className="container mx-auto px-6 md:px-12">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
           <div>
             <motion.h2 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4"
+              className="text-5xl md:text-6xl font-serif font-bold text-primary mb-6"
             >
-              Hear the <span className="text-primary italic font-normal">Difference</span>.
+              Audio <span className="text-accent italic font-normal">Library</span>.
             </motion.h2>
-            <p className="text-muted-foreground text-lg max-w-xl">
-              From high-energy morning drives to measured, professional narration.
-            </p>
           </div>
           
           <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="flex flex-wrap gap-2"
           >
@@ -69,10 +38,10 @@ export function AudioSamples() {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                className={`px-5 py-2.5 text-sm font-bold uppercase tracking-widest transition-all ${
                   activeCategory === cat 
                     ? "bg-primary text-primary-foreground" 
-                    : "bg-background border border-border text-muted-foreground hover:text-foreground"
+                    : "bg-transparent border border-border text-foreground hover:border-primary"
                 }`}
               >
                 {cat}
@@ -81,55 +50,49 @@ export function AudioSamples() {
           </motion.div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-6">
-          {filteredTracks.map((track, i) => {
-            const isThisPlaying = playingTrack === track.id && isPlaying;
-            return (
-              <motion.div
-                key={track.id}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className={`flex items-center gap-4 p-4 md:p-6 rounded-2xl transition-all border ${
-                  playingTrack === track.id 
-                    ? "bg-card border-primary/50 shadow-[0_0_20px_rgba(245,158,11,0.1)]" 
-                    : "bg-background border-border hover:border-primary/30 hover:bg-card"
-                }`}
-              >
-                <button
-                  onClick={() => togglePlay(track.id)}
-                  className={`w-14 h-14 shrink-0 rounded-full flex items-center justify-center transition-all ${
-                    isThisPlaying
-                      ? "bg-primary text-primary-foreground shadow-[0_0_15px_rgba(245,158,11,0.4)]"
-                      : "bg-secondary text-foreground hover:bg-primary/20 hover:text-primary"
-                  }`}
-                >
-                  {isThisPlaying ? <Pause className="w-6 h-6" fill="currentColor" /> : <Play className="w-6 h-6 ml-1" fill="currentColor" />}
-                </button>
-                
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-3 mb-1">
-                    <span className="text-xs font-medium text-primary tracking-wider uppercase">{track.category}</span>
-                  </div>
-                  <h4 className="text-lg font-bold text-foreground truncate">{track.title}</h4>
+        <div className="grid lg:grid-cols-2 gap-8">
+          {filteredTracks.map((track, i) => (
+            <motion.div
+              key={track.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.05 }}
+              className="flex flex-col bg-card border border-card-border p-6 group hover:border-primary/50 transition-colors"
+            >
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <span className="text-xs font-bold text-accent tracking-widest uppercase mb-2 block">{track.category}</span>
+                  <h4 className="text-2xl font-serif font-bold text-primary">{track.title}</h4>
                 </div>
-                
-                <div className="flex items-center gap-4">
-                  {playingTrack === track.id && (
-                    <div className={`flex items-end gap-1 h-6 w-12 ${isPlaying ? 'playing' : ''}`}>
-                      <div className="w-1.5 bg-primary rounded-t-sm eq-bar" style={{height: '4px'}}></div>
-                      <div className="w-1.5 bg-primary rounded-t-sm eq-bar" style={{height: '8px'}}></div>
-                      <div className="w-1.5 bg-primary rounded-t-sm eq-bar" style={{height: '12px'}}></div>
-                      <div className="w-1.5 bg-primary rounded-t-sm eq-bar" style={{height: '6px'}}></div>
-                      <div className="w-1.5 bg-primary rounded-t-sm eq-bar" style={{height: '10px'}}></div>
-                    </div>
-                  )}
+                {track.duration && (
                   <span className="text-muted-foreground font-mono text-sm">{track.duration}</span>
-                </div>
-              </motion.div>
-            );
-          })}
+                )}
+              </div>
+              
+              {track.description && (
+                <p className="text-muted-foreground mb-6">{track.description}</p>
+              )}
+
+              <div className="mt-auto">
+                {track.soundcloudUrl ? (
+                  <iframe 
+                    width="100%" 
+                    height="166" 
+                    scrolling="no" 
+                    frameBorder="no" 
+                    allow="autoplay" 
+                    src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(track.soundcloudUrl)}&color=%23E03C1A&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`}
+                  ></iframe>
+                ) : (
+                  <div className="w-full h-[166px] bg-background border border-border flex flex-col items-center justify-center text-muted-foreground gap-3">
+                    <Disc className="w-8 h-8 opacity-50" />
+                    <span className="text-sm font-medium uppercase tracking-widest">Track Coming Soon</span>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

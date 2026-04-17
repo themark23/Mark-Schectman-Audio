@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Link } from "wouter";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { FaInstagram, FaTwitter, FaFacebookF, FaLinkedinIn, FaTiktok } from "react-icons/fa";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -17,43 +17,52 @@ export function Navbar() {
 
   const navLinks = [
     { name: "About", href: "#about" },
+    { name: "Radio", href: "#radio" },
     { name: "Audio", href: "#audio" },
+    { name: "Interviews", href: "#interviews" },
     { name: "Booking", href: "#booking" },
   ];
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-background/90 backdrop-blur-md border-b border-border/50 py-4" : "bg-transparent py-6"
+        scrolled ? "bg-background/95 backdrop-blur-md border-b border-border/50 py-4 shadow-sm" : "bg-transparent py-6"
       }`}
     >
       <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
-        <a href="#" className="font-serif text-2xl font-bold tracking-tight text-foreground hover:text-primary transition-colors">
+        <a href="#" className="font-serif text-2xl md:text-3xl font-bold tracking-tight text-primary hover:text-accent transition-colors">
           Mark Schectman
         </a>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors tracking-wide uppercase"
+              className="text-sm font-semibold text-foreground hover:text-accent transition-colors tracking-wide uppercase"
             >
               {link.name}
             </a>
           ))}
+          <div className="flex items-center gap-3 border-l border-border pl-6">
+            <a href="https://instagram.com" className="text-foreground hover:text-accent transition-colors"><FaInstagram size={18} /></a>
+            <a href="https://twitter.com" className="text-foreground hover:text-accent transition-colors"><FaTwitter size={18} /></a>
+            <a href="https://facebook.com" className="text-foreground hover:text-accent transition-colors"><FaFacebookF size={18} /></a>
+            <a href="https://linkedin.com" className="text-foreground hover:text-accent transition-colors"><FaLinkedinIn size={18} /></a>
+            <a href="https://tiktok.com" className="text-foreground hover:text-accent transition-colors"><FaTiktok size={18} /></a>
+          </div>
           <a
-            href="#booking"
-            className="px-6 py-2 bg-primary text-primary-foreground font-semibold rounded-full hover:bg-primary/90 transition-all shadow-[0_0_15px_rgba(245,158,11,0.3)] hover:shadow-[0_0_25px_rgba(245,158,11,0.5)] uppercase tracking-wide text-sm"
+            href="mailto:markschectman@gmail.com"
+            className="ml-2 px-6 py-2.5 bg-primary text-primary-foreground font-semibold rounded-none hover:bg-primary/90 transition-all uppercase tracking-wide text-sm"
           >
-            Book Mark
+            Contact
           </a>
         </nav>
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden text-foreground hover:text-primary transition-colors"
+          className="lg:hidden text-foreground hover:text-accent transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -67,19 +76,26 @@ export function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background/95 backdrop-blur-lg border-b border-border overflow-hidden"
+            className="lg:hidden bg-background/98 backdrop-blur-lg border-b border-border overflow-hidden"
           >
             <nav className="flex flex-col px-6 py-8 gap-6">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                  className="text-lg font-bold text-foreground hover:text-accent transition-colors uppercase tracking-wider"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.name}
                 </a>
               ))}
+              <div className="flex items-center gap-6 pt-4 border-t border-border">
+                <a href="https://instagram.com" className="text-foreground hover:text-accent transition-colors"><FaInstagram size={22} /></a>
+                <a href="https://twitter.com" className="text-foreground hover:text-accent transition-colors"><FaTwitter size={22} /></a>
+                <a href="https://facebook.com" className="text-foreground hover:text-accent transition-colors"><FaFacebookF size={22} /></a>
+                <a href="https://linkedin.com" className="text-foreground hover:text-accent transition-colors"><FaLinkedinIn size={22} /></a>
+                <a href="https://tiktok.com" className="text-foreground hover:text-accent transition-colors"><FaTiktok size={22} /></a>
+              </div>
             </nav>
           </motion.div>
         )}
