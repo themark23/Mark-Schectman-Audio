@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Play, Pause, Disc } from "lucide-react";
+import { Disc, BookOpen, ExternalLink } from "lucide-react";
 import { audioTracks } from "@/data/audioTracks";
+
+const ALL_CATEGORIES = ["All", "Radio Imaging", "Audiobooks", "Voice Over", "Emcee Highlights"] as const;
 
 export function AudioSamples() {
   const [activeCategory, setActiveCategory] = useState("All");
-  const [playingTrack, setPlayingTrack] = useState<string | null>(null);
-  
-  const categories = ["All", "Radio Imaging", "Voice Over", "Emcee Highlights", "Commercials"];
 
-  const filteredTracks = activeCategory === "All" 
-    ? audioTracks 
+  const filteredTracks = activeCategory === "All"
+    ? audioTracks
     : audioTracks.filter(t => t.category === activeCategory);
 
   return (
@@ -18,29 +17,37 @@ export function AudioSamples() {
       <div className="container mx-auto px-6 md:px-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
           <div>
-            <motion.h2 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-5xl md:text-6xl font-serif font-bold text-primary mb-6"
+              className="text-xs font-bold tracking-[0.25em] uppercase text-accent mb-3"
+            >
+              Listen
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-5xl md:text-6xl font-serif font-bold text-primary"
             >
               Audio <span className="text-accent italic font-normal">Library</span>.
             </motion.h2>
           </div>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="flex flex-wrap gap-2"
           >
-            {categories.map(cat => (
+            {ALL_CATEGORIES.map(cat => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 className={`px-5 py-2.5 text-sm font-bold uppercase tracking-widest transition-all ${
-                  activeCategory === cat 
-                    ? "bg-primary text-primary-foreground" 
+                  activeCategory === cat
+                    ? "bg-primary text-primary-foreground"
                     : "bg-transparent border border-border text-foreground hover:border-primary"
                 }`}
               >
@@ -60,34 +67,63 @@ export function AudioSamples() {
               transition={{ delay: i * 0.05 }}
               className="flex flex-col bg-card border border-card-border p-6 group hover:border-primary/50 transition-colors"
             >
-              <div className="flex items-center justify-between mb-6">
-                <div>
+              <div className="flex items-start justify-between gap-4 mb-4">
+                <div className="flex-1">
                   <span className="text-xs font-bold text-accent tracking-widest uppercase mb-2 block">{track.category}</span>
-                  <h4 className="text-2xl font-serif font-bold text-primary">{track.title}</h4>
+                  <h4 className="text-xl font-serif font-bold text-primary leading-snug">{track.title}</h4>
                 </div>
                 {track.duration && (
-                  <span className="text-muted-foreground font-mono text-sm">{track.duration}</span>
+                  <span className="text-muted-foreground font-mono text-sm shrink-0 mt-1">{track.duration}</span>
                 )}
               </div>
-              
+
               {track.description && (
-                <p className="text-muted-foreground mb-6">{track.description}</p>
+                <p className="text-muted-foreground mb-4 text-sm">{track.description}</p>
               )}
 
               <div className="mt-auto">
-                {track.soundcloudUrl ? (
-                  <iframe 
-                    width="100%" 
-                    height="166" 
-                    scrolling="no" 
-                    frameBorder="no" 
-                    allow="autoplay" 
+                {/* SoundCloud embed */}
+                {track.soundcloudUrl && (
+                  <iframe
+                    width="100%"
+                    height="166"
+                    scrolling="no"
+                    frameBorder="no"
+                    allow="autoplay"
                     src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(track.soundcloudUrl)}&color=%23E03C1A&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`}
-                  ></iframe>
-                ) : (
-                  <div className="w-full h-[166px] bg-background border border-border flex flex-col items-center justify-center text-muted-foreground gap-3">
-                    <Disc className="w-8 h-8 opacity-50" />
-                    <span className="text-sm font-medium uppercase tracking-widest">Track Coming Soon</span>
+                  />
+                )}
+
+                {/* Audiobook card */}
+                {track.category === "Audiobooks" && !track.soundcloudUrl && (
+                  <div className="w-full bg-secondary border border-border p-5 flex items-center gap-5">
+                    <div className="w-12 h-12 bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                      <BookOpen className="w-5 h-5 text-primary" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1">Narrated by Mark Schectman</p>
+                      <p className="text-sm text-foreground font-medium">Available on Audible</p>
+                    </div>
+                    {track.audibleUrl ? (
+                      <a
+                        href={track.audibleUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors shrink-0"
+                      >
+                        Listen <ExternalLink className="w-3 h-3" />
+                      </a>
+                    ) : (
+                      <span className="text-xs text-muted-foreground font-medium italic shrink-0">Link coming soon</span>
+                    )}
+                  </div>
+                )}
+
+                {/* Placeholder for VO / Emcee */}
+                {!track.soundcloudUrl && track.category !== "Audiobooks" && (
+                  <div className="w-full h-[80px] bg-background border border-border flex items-center justify-center text-muted-foreground gap-3">
+                    <Disc className="w-6 h-6 opacity-40" />
+                    <span className="text-sm font-medium uppercase tracking-widest">Coming Soon</span>
                   </div>
                 )}
               </div>

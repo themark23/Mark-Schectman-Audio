@@ -22,6 +22,7 @@ export function Navbar() {
     { name: "Interviews", href: "#interviews" },
     { name: "Press", href: "#press" },
     { name: "Writing", href: "#writing" },
+    { name: "Social", href: "#social" },
     { name: "Booking", href: "#booking" },
   ];
 
