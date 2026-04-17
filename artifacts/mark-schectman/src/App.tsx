@@ -9,6 +9,7 @@ import { Radio } from "@/components/sections/Radio";
 import { AudioSamples } from "@/components/sections/AudioSamples";
 import { Interviews } from "@/components/sections/Interviews";
 import { Press } from "@/components/sections/Press";
+import { Writing } from "@/components/sections/Writing";
 import { Booking } from "@/components/sections/Booking";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ function Home() {
         <AudioSamples />
         <Interviews />
         <Press />
+        <Writing />
         <Booking />
       </main>
 
