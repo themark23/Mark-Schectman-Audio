@@ -1,0 +1,8 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "Z4K5dtPxzAVcfeFBH93cY"
+uri = "file://artifacts/mark-schectman/public/mark-headshot.png"
+type = "image"
+title = "Mark Schectman professional headshot"
