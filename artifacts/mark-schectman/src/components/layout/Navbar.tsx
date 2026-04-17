@@ -33,7 +33,7 @@ export function Navbar() {
     >
       <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
         <a href="#" className="font-serif text-2xl md:text-3xl font-bold tracking-tight text-primary hover:text-accent transition-colors">
-          Mark Schectman
+          Mark On the Radio
         </a>
 
         {/* Desktop Nav */}
