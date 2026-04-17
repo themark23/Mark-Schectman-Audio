@@ -14,7 +14,7 @@ export const socialRoles: SocialRole[] = [
     id: "burson",
     agency: "Burson",
     location: "Dallas, TX",
-    title: "Vice President, Comms Social",
+    title: "Senior Vice President, Comms Social",
     period: "2025 — Present",
     clients: ["Ford Motor Company"],
     highlights: [

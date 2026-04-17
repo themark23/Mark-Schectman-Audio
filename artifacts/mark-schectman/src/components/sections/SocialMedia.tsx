@@ -32,7 +32,7 @@ export function SocialMedia() {
             transition={{ delay: 0.1 }}
           >
             <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-              Over a decade leading organic social strategy at the world's top agencies — building content practices, launching brand presences, and managing social for some of the most recognized names in the world.
+              Almost two decades leading organic social strategy at the world's top agencies — building content practices, launching brand presences, and managing social for some of the most recognized names in the world.
             </p>
 
             {/* Client ticker */}
