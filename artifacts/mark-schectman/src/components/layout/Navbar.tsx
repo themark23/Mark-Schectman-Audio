@@ -20,6 +20,7 @@ export function Navbar() {
     { name: "Radio", href: "#radio" },
     { name: "Audio", href: "#audio" },
     { name: "Interviews", href: "#interviews" },
+    { name: "Press", href: "#press" },
     { name: "Booking", href: "#booking" },
   ];
 

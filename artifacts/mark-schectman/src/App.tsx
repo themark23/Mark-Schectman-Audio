@@ -8,6 +8,7 @@ import { About } from "@/components/sections/About";
 import { Radio } from "@/components/sections/Radio";
 import { AudioSamples } from "@/components/sections/AudioSamples";
 import { Interviews } from "@/components/sections/Interviews";
+import { Press } from "@/components/sections/Press";
 import { Booking } from "@/components/sections/Booking";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ function Home() {
         <Radio />
         <AudioSamples />
         <Interviews />
+        <Press />
         <Booking />
       </main>
 
