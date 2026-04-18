@@ -17,7 +17,6 @@ export function Writing() {
     ? writing
     : writing.filter(w => w.category === activeCategory);
 
-  // Group filtered pieces by publication
   const grouped = publications
     .map(pub => ({
       ...pub,
@@ -26,11 +25,11 @@ export function Writing() {
     .filter(g => g.pieces.length > 0);
 
   return (
-    <section id="writing" className="py-24 bg-secondary relative">
+    <section id="writing" className="py-16 md:py-24 bg-secondary relative">
       <div className="container mx-auto px-6 md:px-12">
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+        <div className="flex flex-col gap-6 md:gap-8 mb-12 md:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -38,10 +37,10 @@ export function Writing() {
             className="max-w-2xl"
           >
             <p className="text-xs font-bold tracking-[0.25em] uppercase text-accent mb-3">Freelance Writing</p>
-            <h2 className="text-5xl md:text-6xl font-serif font-bold text-primary">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-primary">
               The <span className="italic font-normal">Written</span> Word.
             </h2>
-            <p className="text-lg text-muted-foreground mt-4 leading-relaxed">
+            <p className="text-base md:text-lg text-muted-foreground mt-3 md:mt-4 leading-relaxed">
               From music criticism and concert reviews to lifestyle features and cocktail culture — bylines across print and digital.
             </p>
           </motion.div>
@@ -51,13 +50,13 @@ export function Writing() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex flex-wrap gap-2 shrink-0"
+            className="flex flex-wrap gap-2"
           >
             {writingCategories.map(cat => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2 text-sm font-bold uppercase tracking-widest transition-all border ${
+                className={`px-4 py-2 text-xs sm:text-sm font-bold uppercase tracking-widest transition-all border ${
                   activeCategory === cat
                     ? "bg-primary text-primary-foreground border-primary"
                     : "bg-background border-border text-foreground hover:border-primary"
@@ -70,7 +69,7 @@ export function Writing() {
         </div>
 
         {/* Publication groups */}
-        <div className="space-y-12">
+        <div className="space-y-10 md:space-y-12">
           {grouped.map((group, gi) => (
             <motion.div
               key={group.name}
@@ -80,16 +79,16 @@ export function Writing() {
               transition={{ delay: gi * 0.08 }}
             >
               {/* Publication header */}
-              <div className="flex items-center gap-4 mb-6">
+              <div className="flex items-center gap-3 md:gap-4 mb-5 md:mb-6">
                 <span className={`text-xs font-bold tracking-widest uppercase px-3 py-1.5 border ${pubColors[group.name] ?? "bg-muted text-muted-foreground border-border"}`}>
                   {group.name}
                 </span>
                 <div className="flex-1 h-px bg-border" />
-                <span className="text-sm text-muted-foreground font-medium">{group.pieces.length} {group.pieces.length === 1 ? "piece" : "pieces"}</span>
+                <span className="text-xs md:text-sm text-muted-foreground font-medium shrink-0">{group.pieces.length} {group.pieces.length === 1 ? "piece" : "pieces"}</span>
               </div>
 
               {/* Article list */}
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
                 {group.pieces.map((piece, pi) => (
                   <motion.div
                     key={piece.id}
@@ -105,7 +104,7 @@ export function Writing() {
                         rel="noopener noreferrer"
                         className="flex items-start justify-between gap-3 p-4 bg-background border border-border hover:border-primary hover:shadow-sm transition-all group"
                       >
-                        <span className="text-foreground font-medium leading-snug group-hover:text-primary transition-colors">
+                        <span className="text-sm text-foreground font-medium leading-snug group-hover:text-primary transition-colors">
                           {piece.title}
                         </span>
                         <ExternalLink className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-accent transition-colors mt-0.5" />
@@ -113,7 +112,7 @@ export function Writing() {
                     ) : (
                       <div className="flex items-start gap-3 p-4 bg-background border border-border">
                         <div className="w-1 h-full shrink-0 self-stretch bg-primary/20 rounded-full mt-1" />
-                        <span className="text-foreground font-medium leading-snug">{piece.title}</span>
+                        <span className="text-sm text-foreground font-medium leading-snug">{piece.title}</span>
                       </div>
                     )}
                   </motion.div>
@@ -128,7 +127,7 @@ export function Writing() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-sm text-muted-foreground mt-12 text-center"
+          className="text-sm text-muted-foreground mt-10 md:mt-12 text-center"
         >
           Links coming soon — reach out at{" "}
           <a href="mailto:markschectman@gmail.com" className="text-primary hover:text-accent transition-colors font-medium">

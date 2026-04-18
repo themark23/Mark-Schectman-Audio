@@ -23,22 +23,22 @@ export function Radio() {
   ];
 
   return (
-    <section id="radio" className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
+    <section id="radio" className="py-16 md:py-24 bg-primary text-primary-foreground relative overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 relative z-10">
-        <div className="grid lg:grid-cols-12 gap-16 items-start">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           
           <div className="lg:col-span-4">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="sticky top-32"
+              className="lg:sticky lg:top-32"
             >
-              <h2 className="text-5xl md:text-6xl font-serif font-bold text-background mb-6">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-background mb-4 md:mb-6">
                 Mark on the <br/><span className="italic text-accent">Radio</span>.
               </h2>
-              <div className="w-16 h-1 bg-accent mb-8"></div>
-              <div className="aspect-[4/5] overflow-hidden shadow-2xl relative">
+              <div className="w-16 h-1 bg-accent mb-6 md:mb-8"></div>
+              <div className="aspect-[4/5] overflow-hidden shadow-2xl relative max-w-sm lg:max-w-none">
                 <img 
                   src="https://images.squarespace-cdn.com/content/v1/6642ea1aa390b918824df07e/b412c351-aba3-42cc-ad4d-ee0daebd265f/IMG_3549.jpg"
                   alt="Mark in the radio studio"
@@ -48,7 +48,7 @@ export function Radio() {
             </motion.div>
           </div>
 
-          <div className="lg:col-span-8 space-y-12">
+          <div className="lg:col-span-8 space-y-8 md:space-y-12">
             {shows.map((show, idx) => (
               <motion.div 
                 key={idx}
@@ -56,13 +56,13 @@ export function Radio() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="bg-background/5 border border-primary-foreground/10 p-8"
+                className="bg-background/5 border border-primary-foreground/10 p-6 md:p-8"
               >
-                <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-4">
-                  <h3 className="text-3xl font-serif font-bold text-background">{show.title}</h3>
-                  <span className="text-accent font-bold tracking-widest uppercase text-sm">{show.dates}</span>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 md:mb-4 gap-2 md:gap-4">
+                  <h3 className="text-2xl md:text-3xl font-serif font-bold text-background">{show.title}</h3>
+                  <span className="text-accent font-bold tracking-widest uppercase text-sm shrink-0">{show.dates}</span>
                 </div>
-                <p className="text-primary-foreground/80 text-lg mb-8 leading-relaxed max-w-2xl">
+                <p className="text-primary-foreground/80 text-base md:text-lg mb-6 md:mb-8 leading-relaxed max-w-2xl">
                   {show.description}
                 </p>
                 <div className="w-full h-[166px] bg-black/20 rounded overflow-hidden">

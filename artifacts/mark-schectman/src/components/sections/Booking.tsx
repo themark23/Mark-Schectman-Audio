@@ -47,16 +47,16 @@ export function Booking() {
   }
 
   return (
-    <section id="booking" className="py-24 bg-background relative border-t border-border">
+    <section id="booking" className="py-16 md:py-24 bg-background relative border-t border-border">
       <div className="container mx-auto px-6 md:px-12 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-24 items-center">
           
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <div className="aspect-[3/4] overflow-hidden shadow-2xl relative mb-10">
+            <div className="aspect-[3/4] overflow-hidden shadow-2xl relative mb-8 md:mb-10 max-w-sm lg:max-w-none">
               <img 
                 src="https://images.squarespace-cdn.com/content/v1/6642ea1aa390b918824df07e/e74e26b7-7529-48e6-b544-81d4ca54190d/IMG_5620.jpg"
                 alt="Mark emceeing on stage"
@@ -65,13 +65,13 @@ export function Booking() {
               <div className="absolute inset-0 bg-primary/10 mix-blend-multiply"></div>
             </div>
             
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-primary mb-6 leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-primary mb-4 md:mb-6 leading-tight">
               Let's make your next event <span className="italic text-accent">memorable</span>.
             </h2>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-5 md:mb-6">
               Mark has emceed everything from concert festivals to galas to award shows with a cool confidence that sets the perfect vibe for your event. With a collaborative, go-with-the-flow attitude, Mark is ready to truly understand your needs and develop a bespoke approach based on your audience and goals.
             </p>
-            <div className="text-xl font-serif italic text-primary mt-8">
+            <div className="text-lg md:text-xl font-serif italic text-primary mt-6 md:mt-8">
               <a href="mailto:markschectman@gmail.com" className="hover:text-accent transition-colors">markschectman@gmail.com</a>
             </div>
           </motion.div>
@@ -80,13 +80,13 @@ export function Booking() {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-card border border-border p-8 md:p-12 shadow-xl"
+            className="bg-card border border-border p-6 md:p-8 lg:p-12 shadow-xl"
           >
-            <h3 className="text-2xl font-bold font-serif text-primary mb-8 uppercase tracking-widest">Book Mark</h3>
+            <h3 className="text-xl md:text-2xl font-bold font-serif text-primary mb-6 md:mb-8 uppercase tracking-widest">Book Mark</h3>
             
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 md:space-y-6">
+                <div className="grid sm:grid-cols-2 gap-5 md:gap-6">
                   <FormField
                     control={form.control}
                     name="name"
@@ -115,7 +115,7 @@ export function Booking() {
                   />
                 </div>
                 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid sm:grid-cols-2 gap-5 md:gap-6">
                   <FormField
                     control={form.control}
                     name="eventType"
@@ -165,7 +165,7 @@ export function Booking() {
                       <FormLabel className="text-primary font-bold uppercase tracking-wider text-xs">Project Details</FormLabel>
                       <FormControl>
                         <Textarea 
-                          className="min-h-[150px] bg-background border-border rounded-none resize-y focus-visible:ring-accent" 
+                          className="min-h-[130px] bg-background border-border rounded-none resize-y focus-visible:ring-accent" 
                           {...field} 
                         />
                       </FormControl>
@@ -176,7 +176,7 @@ export function Booking() {
                 
                 <Button 
                   type="submit" 
-                  className="w-full h-14 bg-accent text-white hover:bg-accent/90 rounded-none text-sm font-bold uppercase tracking-widest shadow-lg mt-4" 
+                  className="w-full h-14 bg-accent text-white hover:bg-accent/90 rounded-none text-sm font-bold uppercase tracking-widest shadow-lg mt-2" 
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Sending..." : "Book Now"}

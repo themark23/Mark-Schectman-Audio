@@ -13,9 +13,9 @@ export function AudioSamples() {
     : audioTracks.filter(t => t.category === activeCategory);
 
   return (
-    <section id="audio" className="py-24 bg-background relative border-y border-border/50">
+    <section id="audio" className="py-16 md:py-24 bg-background relative border-y border-border/50">
       <div className="container mx-auto px-6 md:px-12">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+        <div className="flex flex-col gap-8 mb-12 md:mb-16">
           <div>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -29,7 +29,7 @@ export function AudioSamples() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-5xl md:text-6xl font-serif font-bold text-primary"
+              className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-primary"
             >
               Audio <span className="text-accent italic font-normal">Library</span>.
             </motion.h2>
@@ -45,7 +45,7 @@ export function AudioSamples() {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2.5 text-sm font-bold uppercase tracking-widest transition-all ${
+                className={`px-4 py-2 text-xs sm:text-sm font-bold uppercase tracking-widest transition-all ${
                   activeCategory === cat
                     ? "bg-primary text-primary-foreground"
                     : "bg-transparent border border-border text-foreground hover:border-primary"
@@ -57,7 +57,7 @@ export function AudioSamples() {
           </motion.div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-6 md:gap-8">
           {filteredTracks.map((track, i) => (
             <motion.div
               key={track.id}
@@ -65,12 +65,12 @@ export function AudioSamples() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="flex flex-col bg-card border border-card-border p-6 group hover:border-primary/50 transition-colors"
+              className="flex flex-col bg-card border border-card-border p-5 md:p-6 group hover:border-primary/50 transition-colors"
             >
               <div className="flex items-start justify-between gap-4 mb-4">
                 <div className="flex-1">
                   <span className="text-xs font-bold text-accent tracking-widest uppercase mb-2 block">{track.category}</span>
-                  <h4 className="text-xl font-serif font-bold text-primary leading-snug">{track.title}</h4>
+                  <h4 className="text-lg md:text-xl font-serif font-bold text-primary leading-snug">{track.title}</h4>
                 </div>
                 {track.duration && (
                   <span className="text-muted-foreground font-mono text-sm shrink-0 mt-1">{track.duration}</span>
@@ -100,16 +100,16 @@ export function AudioSamples() {
                     href={track.audibleUrl ?? "#"}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full flex items-center gap-5 bg-secondary border border-border p-4 hover:border-primary transition-colors group"
+                    className="w-full flex items-center gap-4 md:gap-5 bg-secondary border border-border p-4 hover:border-primary transition-colors group"
                   >
                     {track.coverUrl ? (
                       <img
                         src={track.coverUrl}
                         alt={track.title}
-                        className="w-20 h-20 object-cover shrink-0 shadow-md"
+                        className="w-16 h-16 md:w-20 md:h-20 object-cover shrink-0 shadow-md"
                       />
                     ) : (
-                      <div className="w-20 h-20 bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                      <div className="w-16 h-16 md:w-20 md:h-20 bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
                         <BookOpen className="w-6 h-6 text-primary" />
                       </div>
                     )}

@@ -8,18 +8,18 @@ export function SocialMedia() {
   const additional = socialRoles.filter(r => !r.featured);
 
   return (
-    <section id="social" className="py-24 bg-secondary relative">
+    <section id="social" className="py-16 md:py-24 bg-secondary relative">
       <div className="container mx-auto px-6 md:px-12">
 
         {/* Header */}
-        <div className="grid lg:grid-cols-[1fr_1fr] gap-16 items-end mb-20">
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-10 md:gap-16 items-end mb-12 md:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
             <p className="text-xs font-bold tracking-[0.25em] uppercase text-accent mb-3">Digital Strategy</p>
-            <h2 className="text-5xl md:text-6xl font-serif font-bold text-primary leading-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-primary leading-tight">
               Social Media<br />
               <span className="italic font-normal">at Scale.</span>
             </h2>
@@ -31,7 +31,7 @@ export function SocialMedia() {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-5 md:mb-6">
               Almost two decades leading organic social strategy at the world's top agencies — building content practices, launching brand presences, and managing social for some of the most recognized names in the world.
             </p>
 
@@ -40,7 +40,7 @@ export function SocialMedia() {
               <p className="text-xs font-bold tracking-widest uppercase text-muted-foreground mb-3">Clients include</p>
               <div className="flex flex-wrap gap-2">
                 {featuredClients.map(client => (
-                  <span key={client} className="px-3 py-1.5 text-sm font-semibold border border-primary/30 text-primary bg-background">
+                  <span key={client} className="px-3 py-1.5 text-xs sm:text-sm font-semibold border border-primary/30 text-primary bg-background">
                     {client}
                   </span>
                 ))}
@@ -50,7 +50,7 @@ export function SocialMedia() {
         </div>
 
         {/* Featured roles — big 4 */}
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
+        <div className="grid md:grid-cols-2 gap-5 md:gap-6 mb-5 md:mb-6">
           {featured.map((role, i) => (
             <motion.div
               key={role.id}
@@ -58,11 +58,11 @@ export function SocialMedia() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
-              className="bg-background border border-border p-8 flex flex-col hover:border-primary/50 transition-colors group"
+              className="bg-background border border-border p-6 md:p-8 flex flex-col hover:border-primary/50 transition-colors group"
             >
               {/* Agency + period */}
-              <div className="flex items-start justify-between gap-4 mb-1">
-                <h3 className="text-2xl font-serif font-bold text-primary group-hover:text-accent transition-colors">
+              <div className="flex items-start justify-between gap-3 md:gap-4 mb-1">
+                <h3 className="text-xl md:text-2xl font-serif font-bold text-primary group-hover:text-accent transition-colors">
                   {role.agency}
                 </h3>
                 <span className="text-xs font-bold tracking-widest uppercase text-muted-foreground shrink-0 mt-1.5">
@@ -71,11 +71,11 @@ export function SocialMedia() {
               </div>
 
               {/* Title */}
-              <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-4">{role.title}</p>
+              <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-3 md:mb-4">{role.title}</p>
 
               {/* Clients */}
               {role.clients.length > 0 && (
-                <div className="flex flex-wrap gap-2 mb-5">
+                <div className="flex flex-wrap gap-2 mb-4 md:mb-5">
                   {role.clients.map(c => (
                     <span key={c} className="text-xs font-bold px-2.5 py-1 bg-primary/8 text-primary border border-primary/20">
                       {c}
@@ -111,14 +111,14 @@ export function SocialMedia() {
           </button>
 
           {showAll && (
-            <div className="mt-6 space-y-4">
+            <div className="mt-5 md:mt-6 space-y-4">
               {additional.map((role, i) => (
                 <motion.div
                   key={role.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.06 }}
-                  className="bg-background border border-border p-6 flex flex-col sm:flex-row sm:items-start gap-4 hover:border-primary/40 transition-colors"
+                  className="bg-background border border-border p-5 md:p-6 flex flex-col sm:flex-row sm:items-start gap-4 hover:border-primary/40 transition-colors"
                 >
                   <div className="sm:w-48 shrink-0">
                     <p className="font-serif font-bold text-primary text-lg">{role.agency}</p>

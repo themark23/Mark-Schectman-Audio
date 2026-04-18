@@ -29,16 +29,16 @@ export function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-background/95 backdrop-blur-md border-b border-border/50 py-4 shadow-sm" : "bg-transparent py-6"
+        scrolled ? "bg-background/95 backdrop-blur-md border-b border-border/50 py-3 md:py-4 shadow-sm" : "bg-transparent py-4 md:py-6"
       }`}
     >
-      <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
-        <a href="#" className="font-serif text-2xl md:text-3xl font-bold tracking-tight text-primary hover:text-accent transition-colors">
+      <div className="container mx-auto px-5 md:px-12 flex items-center justify-between">
+        <a href="#" className="font-serif text-xl md:text-3xl font-bold tracking-tight text-primary hover:text-accent transition-colors leading-none">
           Mark On the Radio
         </a>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+        <nav className="hidden lg:flex items-center gap-5 xl:gap-8">
           {navLinks.map((link) => (
             <a
               key={link.name}
@@ -48,7 +48,7 @@ export function Navbar() {
               {link.name}
             </a>
           ))}
-          <div className="flex items-center gap-3 border-l border-border pl-6">
+          <div className="flex items-center gap-3 border-l border-border pl-5">
             <a href="https://instagram.com" className="text-foreground hover:text-accent transition-colors"><FaInstagram size={18} /></a>
             <a href="https://twitter.com" className="text-foreground hover:text-accent transition-colors"><FaTwitter size={18} /></a>
             <a href="https://facebook.com" className="text-foreground hover:text-accent transition-colors"><FaFacebookF size={18} /></a>
@@ -65,10 +65,11 @@ export function Navbar() {
 
         {/* Mobile Toggle */}
         <button
-          className="lg:hidden text-foreground hover:text-accent transition-colors"
+          className="lg:hidden text-foreground hover:text-accent transition-colors p-1"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
         >
-          {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
         </button>
       </div>
 
@@ -81,24 +82,31 @@ export function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden bg-background/98 backdrop-blur-lg border-b border-border overflow-hidden"
           >
-            <nav className="flex flex-col px-6 py-8 gap-6">
+            <nav className="flex flex-col px-5 py-6 gap-1">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-lg font-bold text-foreground hover:text-accent transition-colors uppercase tracking-wider"
+                  className="text-base font-bold text-foreground hover:text-accent transition-colors uppercase tracking-wider py-3 border-b border-border/40 last:border-0"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.name}
                 </a>
               ))}
-              <div className="flex items-center gap-6 pt-4 border-t border-border">
-                <a href="https://instagram.com" className="text-foreground hover:text-accent transition-colors"><FaInstagram size={22} /></a>
-                <a href="https://twitter.com" className="text-foreground hover:text-accent transition-colors"><FaTwitter size={22} /></a>
-                <a href="https://facebook.com" className="text-foreground hover:text-accent transition-colors"><FaFacebookF size={22} /></a>
-                <a href="https://linkedin.com" className="text-foreground hover:text-accent transition-colors"><FaLinkedinIn size={22} /></a>
-                <a href="https://tiktok.com" className="text-foreground hover:text-accent transition-colors"><FaTiktok size={22} /></a>
+              <div className="flex items-center gap-5 pt-5 mt-2">
+                <a href="https://instagram.com" className="text-foreground hover:text-accent transition-colors"><FaInstagram size={20} /></a>
+                <a href="https://twitter.com" className="text-foreground hover:text-accent transition-colors"><FaTwitter size={20} /></a>
+                <a href="https://facebook.com" className="text-foreground hover:text-accent transition-colors"><FaFacebookF size={20} /></a>
+                <a href="https://linkedin.com" className="text-foreground hover:text-accent transition-colors"><FaLinkedinIn size={20} /></a>
+                <a href="https://tiktok.com" className="text-foreground hover:text-accent transition-colors"><FaTiktok size={20} /></a>
               </div>
+              <a
+                href="mailto:markschectman@gmail.com"
+                className="mt-4 w-full text-center py-3 bg-primary text-primary-foreground font-bold uppercase tracking-widest text-sm hover:bg-primary/90 transition-all"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Contact
+              </a>
             </nav>
           </motion.div>
         )}

@@ -21,23 +21,23 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="py-24 bg-background relative overflow-hidden">
+    <section className="py-16 md:py-24 bg-background relative overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center max-w-2xl mx-auto mb-16"
+          className="text-center max-w-2xl mx-auto mb-10 md:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-foreground mb-4">
             The <span className="text-primary italic font-normal">Verdict</span>.
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-muted-foreground text-base md:text-lg">
             Don't just take my word for it. Here's what event directors and producers have to say.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-5 md:gap-8">
           {testimonials.map((t, i) => (
             <motion.div
               key={i}
@@ -45,10 +45,10 @@ export function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-card border border-card-border p-8 rounded-3xl relative"
+              className="bg-card border border-card-border p-6 md:p-8 rounded-3xl relative"
             >
-              <Quote className="w-10 h-10 text-primary/20 absolute top-6 right-6" />
-              <p className="text-foreground text-lg leading-relaxed mb-8 relative z-10">
+              <Quote className="w-8 h-8 md:w-10 md:h-10 text-primary/20 absolute top-5 right-5 md:top-6 md:right-6" />
+              <p className="text-foreground text-base md:text-lg leading-relaxed mb-6 md:mb-8 relative z-10">
                 "{t.quote}"
               </p>
               <div>
