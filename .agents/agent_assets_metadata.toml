@@ -1,8 +1,19 @@
 uploads = []
-outputs = []
 
 [[generated]]
 id = "Z4K5dtPxzAVcfeFBH93cY"
 uri = "file://artifacts/mark-schectman/public/mark-headshot.png"
 type = "image"
 title = "Mark Schectman professional headshot"
+
+[[outputs]]
+id = "1dsf6wrLbkYbWbHQxn5rQ"
+uri = "file://screenshots/desktop-home.jpg"
+type = "image"
+title = "Desktop view"
+
+[[outputs]]
+id = "Ya8zgPSPlCxDCf8u89x3V"
+uri = "file://screenshots/mobile-home.jpg"
+type = "image"
+title = "Mobile view"
