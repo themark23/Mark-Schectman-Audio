@@ -1,6 +1,42 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { socialRoles, featuredClients } from "@/data/socialMedia";
+import { socialRoles, featuredClients, type SocialRole } from "@/data/socialMedia";
+
+function RoleRow({ role, index }: { role: SocialRole; index: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.06 }}
+      className="bg-background border border-border p-5 md:p-6 flex flex-col sm:flex-row sm:items-start gap-4 hover:border-primary/40 transition-colors"
+    >
+      <div className="sm:w-48 shrink-0">
+        <p className="font-serif font-bold text-primary text-lg">{role.agency}</p>
+        <p className="text-xs text-muted-foreground mt-0.5">{role.period}</p>
+      </div>
+      <div className="flex-1">
+        <p className="text-sm font-semibold text-accent uppercase tracking-wide mb-2">{role.title}</p>
+        {role.clients.length > 0 && (
+          <p className="text-sm text-muted-foreground mb-2">
+            <span className="font-medium text-foreground">Clients: </span>
+            {role.clients.join(", ")}
+          </p>
+        )}
+        {role.highlights.length > 0 && (
+          <ul className="space-y-1.5">
+            {role.highlights.map((h, hi) => (
+              <li key={hi} className="flex gap-2 text-sm text-muted-foreground leading-relaxed">
+                <span className="text-accent font-bold shrink-0 mt-0.5">—</span>
+                <span>{h}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </motion.div>
+  );
+}
 
 export function SocialMedia() {
   const [showAll, setShowAll] = useState(false);
@@ -49,51 +85,24 @@ export function SocialMedia() {
           </motion.div>
         </div>
 
-        {/* Featured roles — big 4 */}
-        <div className="grid md:grid-cols-2 gap-5 md:gap-6 mb-5 md:mb-6">
+        {/* Don Draper hero image */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-10 md:mb-12"
+        >
+          <img
+            src="/don-draper.jpg"
+            alt="Don Draper pointing at a whiteboard that reads 'Organic Social'"
+            className="w-full h-auto border border-border"
+          />
+        </motion.div>
+
+        {/* All roles — uniform horizontal list */}
+        <div className="space-y-4 mb-5 md:mb-6">
           {featured.map((role, i) => (
-            <motion.div
-              key={role.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-              className="bg-background border border-border p-6 md:p-8 flex flex-col hover:border-primary/50 transition-colors group"
-            >
-              {/* Agency + period */}
-              <div className="flex items-start justify-between gap-3 md:gap-4 mb-1">
-                <h3 className="text-xl md:text-2xl font-serif font-bold text-primary group-hover:text-accent transition-colors">
-                  {role.agency}
-                </h3>
-                <span className="text-xs font-bold tracking-widest uppercase text-muted-foreground shrink-0 mt-1.5">
-                  {role.period}
-                </span>
-              </div>
-
-              {/* Title */}
-              <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-3 md:mb-4">{role.title}</p>
-
-              {/* Clients */}
-              {role.clients.length > 0 && (
-                <div className="flex flex-wrap gap-2 mb-4 md:mb-5">
-                  {role.clients.map(c => (
-                    <span key={c} className="text-xs font-bold px-2.5 py-1 bg-primary/8 text-primary border border-primary/20">
-                      {c}
-                    </span>
-                  ))}
-                </div>
-              )}
-
-              {/* Highlights */}
-              <ul className="space-y-2 mt-auto">
-                {role.highlights.map((h, hi) => (
-                  <li key={hi} className="flex gap-3 text-sm text-muted-foreground leading-relaxed">
-                    <span className="text-accent font-bold shrink-0 mt-0.5">—</span>
-                    <span>{h}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
+            <RoleRow key={role.id} role={role} index={i} />
           ))}
         </div>
 
@@ -113,28 +122,7 @@ export function SocialMedia() {
           {showAll && (
             <div className="mt-5 md:mt-6 space-y-4">
               {additional.map((role, i) => (
-                <motion.div
-                  key={role.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.06 }}
-                  className="bg-background border border-border p-5 md:p-6 flex flex-col sm:flex-row sm:items-start gap-4 hover:border-primary/40 transition-colors"
-                >
-                  <div className="sm:w-48 shrink-0">
-                    <p className="font-serif font-bold text-primary text-lg">{role.agency}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">{role.period}</p>
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-semibold text-accent uppercase tracking-wide mb-2">{role.title}</p>
-                    {role.clients.length > 0 && (
-                      <p className="text-sm text-muted-foreground mb-2">
-                        <span className="font-medium text-foreground">Clients: </span>
-                        {role.clients.join(", ")}
-                      </p>
-                    )}
-                    <p className="text-sm text-muted-foreground leading-relaxed">{role.highlights[0]}</p>
-                  </div>
-                </motion.div>
+                <RoleRow key={role.id} role={role} index={i} />
               ))}
             </div>
           )}
