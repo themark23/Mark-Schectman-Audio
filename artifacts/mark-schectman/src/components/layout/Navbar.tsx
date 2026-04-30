@@ -56,7 +56,7 @@ export function Navbar() {
             <a href="https://tiktok.com" className="text-foreground hover:text-accent transition-colors"><FaTiktok size={18} /></a>
           </div>
           <a
-            href="mailto:markschectman@gmail.com"
+            href="#booking"
             className="ml-2 px-6 py-2.5 bg-primary text-primary-foreground font-semibold rounded-none hover:bg-primary/90 transition-all uppercase tracking-wide text-sm"
           >
             Contact
@@ -101,7 +101,7 @@ export function Navbar() {
                 <a href="https://tiktok.com" className="text-foreground hover:text-accent transition-colors"><FaTiktok size={20} /></a>
               </div>
               <a
-                href="mailto:markschectman@gmail.com"
+                href="#booking"
                 className="mt-4 w-full text-center py-3 bg-primary text-primary-foreground font-bold uppercase tracking-widest text-sm hover:bg-primary/90 transition-all"
                 onClick={() => setMobileMenuOpen(false)}
               >

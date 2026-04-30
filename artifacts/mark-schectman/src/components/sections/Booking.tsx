@@ -35,15 +35,30 @@ export function Booking() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
+
+    const subject = `Booking Inquiry from ${values.name}`;
+    const bodyLines = [
+      `Name: ${values.name}`,
+      `Email: ${values.email}`,
+      `Event Type: ${values.eventType}`,
+      values.eventDate ? `Event Date: ${values.eventDate}` : null,
+      "",
+      "Project Details:",
+      values.message,
+    ].filter(Boolean);
+    const body = bodyLines.join("\n");
+
+    const mailto = `mailto:markschectman@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+
     setTimeout(() => {
-      console.log(values);
       setIsSubmitting(false);
       toast({
-        title: "Message sent successfully!",
-        description: "Mark will get back to you shortly.",
+        title: "Opening your email app",
+        description: "Your inquiry has been pre-filled — just hit send.",
       });
       form.reset();
-    }, 1500);
+    }, 800);
   }
 
   return (
@@ -71,9 +86,6 @@ export function Booking() {
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-5 md:mb-6">
               Mark has emceed everything from concert festivals to galas to award shows with a cool confidence that sets the perfect vibe for your event. With a collaborative, go-with-the-flow attitude, Mark is ready to truly understand your needs and develop a bespoke approach based on your audience and goals.
             </p>
-            <div className="text-lg md:text-xl font-serif italic text-primary mt-6 md:mt-8">
-              <a href="mailto:markschectman@gmail.com" className="hover:text-accent transition-colors">markschectman@gmail.com</a>
-            </div>
           </motion.div>
           
           <motion.div 

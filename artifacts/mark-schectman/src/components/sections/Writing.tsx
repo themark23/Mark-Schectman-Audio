@@ -129,11 +129,11 @@ export function Writing() {
           viewport={{ once: true }}
           className="text-sm text-muted-foreground mt-10 md:mt-12 text-center"
         >
-          Links coming soon — reach out at{" "}
-          <a href="mailto:markschectman@gmail.com" className="text-primary hover:text-accent transition-colors font-medium">
-            markschectman@gmail.com
-          </a>{" "}
-          for writing samples.
+          Looking for additional writing samples?{" "}
+          <a href="#booking" className="text-primary hover:text-accent transition-colors font-medium">
+            Get in touch
+          </a>
+          .
         </motion.p>
 
       </div>

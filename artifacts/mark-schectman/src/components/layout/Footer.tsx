@@ -14,8 +14,8 @@ export function Footer() {
             <p className="text-primary-foreground/80 max-w-sm font-medium mb-6">
               Dallas, Texas
             </p>
-            <a href="mailto:markschectman@gmail.com" className="text-xl font-serif italic text-accent hover:text-accent/80 transition-colors">
-              markschectman@gmail.com
+            <a href="#booking" className="text-xl font-serif italic text-accent hover:text-accent/80 transition-colors">
+              Get in touch &rarr;
             </a>
           </div>
           
