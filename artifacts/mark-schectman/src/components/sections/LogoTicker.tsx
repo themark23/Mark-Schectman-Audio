@@ -35,7 +35,7 @@ const logos = [
   },
   {
     name: "World Affairs Council",
-    src: null, // text fallback
+    src: "/wac-logo.png",
   },
   {
     name: "PRSA",
