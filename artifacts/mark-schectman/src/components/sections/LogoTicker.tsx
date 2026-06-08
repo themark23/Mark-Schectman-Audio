@@ -23,7 +23,7 @@ const logos = [
   },
   {
     name: "Gold's Gym",
-    src: "/golds-gym-logo.png",
+    src: null,
   },
   {
     name: "Gen",
@@ -35,7 +35,7 @@ const logos = [
   },
   {
     name: "World Affairs Council",
-    src: "/wac-logo.png",
+    src: null,
   },
   {
     name: "PRSA",
@@ -50,13 +50,13 @@ const logos = [
 function LogoItem({ name, src }: { name: string; src: string | null }) {
   if (!src) {
     return (
-      <div className="flex items-center justify-center h-10 flex-shrink-0 opacity-40 hover:opacity-75 transition-opacity duration-300">
+      <div className="flex items-center justify-center h-10 flex-shrink-0 opacity-55 hover:opacity-85 transition-opacity duration-300">
         <span
           style={{
             fontFamily: "var(--app-font-sans, Inter, Arial, sans-serif)",
-            fontSize: "0.75rem",
-            fontWeight: 700,
-            letterSpacing: "0.08em",
+            fontSize: "0.8rem",
+            fontWeight: 800,
+            letterSpacing: "0.1em",
             whiteSpace: "nowrap",
             color: "hsl(var(--foreground))",
           }}
