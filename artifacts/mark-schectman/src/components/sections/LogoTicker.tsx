@@ -23,7 +23,7 @@ const logos = [
   },
   {
     name: "Gold's Gym",
-    src: null, // text fallback
+    src: "/golds-gym-logo.png",
   },
   {
     name: "Gen",
@@ -39,7 +39,7 @@ const logos = [
   },
   {
     name: "PRSA",
-    src: null, // text fallback — PRSA site blocks cross-origin
+    src: "/prsa-logo.png",
   },
   {
     name: "CultureMap",
