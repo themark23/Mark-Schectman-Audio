@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { CalendarDays, Mail } from "lucide-react";
+import { CalendarDays } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -50,11 +50,11 @@ export function Contact() {
     <section id="booking" className="py-24 relative overflow-hidden">
       {/* Background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-primary/5 blur-[150px] rounded-full pointer-events-none" />
-      
+
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <div className="grid lg:grid-cols-5 gap-12 lg:gap-20">
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -66,17 +66,8 @@ export function Contact() {
             <p className="text-muted-foreground text-lg mb-10 leading-relaxed">
               Looking for a seasoned emcee for your next gala, a dynamic voice for your campaign, or a speaker who can truly command a room? Let's talk.
             </p>
-            
+
             <div className="space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-primary">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Direct Email</p>
-                  <a href="mailto:booking@markschectman.com" className="text-lg font-bold hover:text-primary transition-colors">booking@markschectman.com</a>
-                </div>
-              </div>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-primary">
                   <CalendarDays className="w-5 h-5" />
@@ -88,8 +79,8 @@ export function Contact() {
               </div>
             </div>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -97,7 +88,7 @@ export function Contact() {
           >
             <div className="bg-card border border-card-border rounded-3xl p-8 md:p-10 shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-amber-300" />
-              
+
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
@@ -128,7 +119,7 @@ export function Contact() {
                       )}
                     />
                   </div>
-                  
+
                   <FormField
                     control={form.control}
                     name="eventType"
@@ -154,7 +145,7 @@ export function Contact() {
                       </FormItem>
                     )}
                   />
-                  
+
                   <FormField
                     control={form.control}
                     name="message"
@@ -162,20 +153,20 @@ export function Contact() {
                       <FormItem>
                         <FormLabel>Project Details</FormLabel>
                         <FormControl>
-                          <Textarea 
-                            placeholder="Tell me about dates, location, and what you're looking for..." 
-                            className="min-h-[120px] bg-background/50 resize-y" 
-                            {...field} 
+                          <Textarea
+                            placeholder="Tell me about dates, location, and what you're looking for..."
+                            className="min-h-[120px] bg-background/50 resize-y"
+                            {...field}
                           />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  
-                  <Button 
-                    type="submit" 
-                    className="w-full h-14 text-lg font-bold mt-4" 
+
+                  <Button
+                    type="submit"
+                    className="w-full h-14 text-lg font-bold mt-4"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? "Sending Request..." : "Send Booking Request"}
@@ -184,7 +175,7 @@ export function Contact() {
               </Form>
             </div>
           </motion.div>
-          
+
         </div>
       </div>
     </section>
