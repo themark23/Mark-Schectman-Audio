@@ -1,6 +1,12 @@
 import { useRef } from "react";
 
-const logos = [
+type Logo = {
+  name: string;
+  src: string | null;
+  filter?: string; // override default filter per logo
+};
+
+const logos: Logo[] = [
   {
     name: "Amazon",
     src: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
@@ -23,7 +29,9 @@ const logos = [
   },
   {
     name: "Gold's Gym",
-    src: null,
+    src: "/golds-gym-logo.png",
+    // Skip brightness(0) so the weight plate detail stays visible; just desaturate + dim
+    filter: "grayscale(100%) opacity(0.55)",
   },
   {
     name: "Gen",
@@ -43,11 +51,11 @@ const logos = [
   },
   {
     name: "CultureMap",
-    src: null, // text fallback
+    src: null,
   },
 ];
 
-function LogoItem({ name, src }: { name: string; src: string | null }) {
+function LogoItem({ name, src, filter }: Logo) {
   if (!src) {
     return (
       <div className="flex items-center justify-center h-10 flex-shrink-0 opacity-55 hover:opacity-85 transition-opacity duration-300">
@@ -77,13 +85,13 @@ function LogoItem({ name, src }: { name: string; src: string | null }) {
           width: "auto",
           maxWidth: "120px",
           objectFit: "contain",
-          filter: "grayscale(100%) brightness(0) opacity(0.65)",
+          filter: filter ?? "grayscale(100%) brightness(0) opacity(0.65)",
         }}
         onError={(e) => {
           const el = e.currentTarget;
           const parent = el.parentElement;
           if (parent) {
-            parent.innerHTML = `<span style="font-family:var(--app-font-sans,Inter,Arial,sans-serif);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;white-space:nowrap;color:hsl(var(--foreground))">${name.toUpperCase()}</span>`;
+            parent.innerHTML = `<span style="font-family:var(--app-font-sans,Inter,Arial,sans-serif);font-size:0.8rem;font-weight:800;letter-spacing:0.1em;white-space:nowrap;color:hsl(var(--foreground))">${name.toUpperCase()}</span>`;
           }
         }}
       />
@@ -154,11 +162,11 @@ export function LogoTicker() {
         >
           {/* Set 1 */}
           {logos.map((logo) => (
-            <LogoItem key={`a-${logo.name}`} name={logo.name} src={logo.src} />
+            <LogoItem key={`a-${logo.name}`} {...logo} />
           ))}
           {/* Set 2 — duplicate for seamless loop */}
           {logos.map((logo) => (
-            <LogoItem key={`b-${logo.name}`} name={logo.name} src={logo.src} />
+            <LogoItem key={`b-${logo.name}`} {...logo} />
           ))}
         </div>
       </div>
