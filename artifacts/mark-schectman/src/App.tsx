@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
+import { LogoTicker } from "@/components/sections/LogoTicker";
 import { About } from "@/components/sections/About";
 import { Radio } from "@/components/sections/Radio";
 import { AudioSamples } from "@/components/sections/AudioSamples";
@@ -19,9 +20,10 @@ function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col relative selection:bg-accent/30 selection:text-primary">
       <Navbar />
-      
+
       <main className="flex-1 relative z-10">
         <Hero />
+        <LogoTicker />
         <About />
         <Radio />
         <AudioSamples />
