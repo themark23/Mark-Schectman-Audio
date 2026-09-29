@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { LogoTicker } from "@/components/sections/LogoTicker";
 import { About } from "@/components/sections/About";
+import { Hosting } from "@/components/sections/Hosting";
 import { Radio } from "@/components/sections/Radio";
 import { AudioSamples } from "@/components/sections/AudioSamples";
 import { Interviews } from "@/components/sections/Interviews";
@@ -25,6 +26,7 @@ function Home() {
         <Hero />
         <LogoTicker />
         <About />
+        <Hosting />
         <Radio />
         <AudioSamples />
         <Interviews />
