@@ -90,9 +90,11 @@ function HostingCard({
   onPlay: () => void;
 }) {
   const isPortrait = video.orientation === "portrait";
-  const thumb = isPortrait
-    ? `https://i.ytimg.com/vi/${video.youtubeId}/oardefault.jpg`
-    : `https://i.ytimg.com/vi/${video.youtubeId}/maxresdefault.jpg`;
+  const thumb =
+    video.thumbnail ??
+    (isPortrait
+      ? `https://i.ytimg.com/vi/${video.youtubeId}/oardefault.jpg`
+      : `https://i.ytimg.com/vi/${video.youtubeId}/maxresdefault.jpg`);
 
   return (
     <motion.div
