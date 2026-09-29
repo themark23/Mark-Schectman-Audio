@@ -4,6 +4,7 @@ export type HostingVideo = {
   title: string;
   description?: string;
   orientation: "portrait" | "landscape";
+  thumbnail?: string; // custom hosted thumbnail; falls back to YouTube's if omitted
 };
 
 // Event hosting / emcee clips. Two are vertical Shorts, one is a horizontal video.
@@ -25,5 +26,6 @@ export const hostingVideos: HostingVideo[] = [
     youtubeId: "TFE9lWbPvBI",
     title: "Event Hosting in a Corporate Office Setting",
     orientation: "portrait",
+    thumbnail: "/hosting-office.jpg",
   },
 ];
