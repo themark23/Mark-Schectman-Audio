@@ -15,12 +15,12 @@ const cards = [
   {
     icon: <Users className="w-7 h-7 text-accent" />,
     title: "Emcee / Host",
-    description: "Award-winning TV host and emcee for galas, festivals, and corporate events across Texas."
+    description: "Award-winning TV host and emcee for galas, festivals, and corporate events across the country."
   },
   {
     icon: <BookOpen className="w-7 h-7 text-accent" />,
     title: "Writer & Social Media Expert",
-    description: "Freelance writer and social media strategist with deep roots in the Dallas music scene."
+    description: "Social media executive with two decades of leadership experience."
   }
 ];
 
@@ -74,7 +74,7 @@ export function About() {
               transition={{ delay: 0.1 }}
               className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-primary"
             >
-              Award-winning DFW radio personality, voice over talent, emcee, social media expert, freelance writer, and TV host.
+              Award-winning radio personality, voice over talent, emcee, social media expert, freelance writer, and TV host.
             </motion.h2>
           </div>
 
