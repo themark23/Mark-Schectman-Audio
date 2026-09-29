@@ -46,8 +46,7 @@ jobs:
         run: pnpm --filter @workspace/mark-schectman build
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: 6b07eb016aea4e397d7a64c3688925f7
-          command: pages deploy artifacts/mark-schectman/dist/public --project-name=markschectman --branch=main
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 6b07eb016aea4e397d7a64c3688925f7
+        run: npx --yes wrangler@3 pages deploy artifacts/mark-schectman/dist/public --project-name=markschectman --branch=main
