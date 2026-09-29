@@ -1,0 +1,53 @@
+name: Deploy to Cloudflare Pages
+
+# Auto-deploys the markschectman.com site whenever site files change on main.
+# Also runnable manually from the Actions tab (workflow_dispatch).
+on:
+  push:
+    branches: [main]
+    paths:
+      - "artifacts/mark-schectman/**"
+      - "attached_assets/**"
+      - "lib/**"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - "package.json"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-markschectman
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Build site
+        run: pnpm --filter @workspace/mark-schectman build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: 6b07eb016aea4e397d7a64c3688925f7
+          command: pages deploy artifacts/mark-schectman/dist/public --project-name=markschectman --branch=main
