@@ -1,14 +1,153 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { BookOpen, ExternalLink, Music2 } from "lucide-react";
+import { BookOpen, ExternalLink, Music2, Play } from "lucide-react";
 import { audioTracks } from "@/data/audioTracks";
-import { WaveformPlayer } from "@/components/ui/WaveformPlayer";
 
 const ALL_CATEGORIES = ["All", "Radio Imaging", "Audiobooks", "Voice Over", "Emcee Highlights"] as const;
 
+// Builds the SoundCloud embed URL from a track URL
+function scEmbedUrl(url: string) {
+  return `https://w.soundcloud.com/player/?url=${encodeURIComponent(url)}&color=%23152e22&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false`;
+}
+
+// Individual track row — shows a play button facade, loads SC iframe on click
+function TrackRow({ track, index }: { track: (typeof audioTracks)[0]; index: number }) {
+  const [expanded, setExpanded] = useState(false);
+
+  // ── Audiobook ──────────────────────────────────────────────────────────────
+  if (track.category === "Audiobooks") {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.04 }}
+        className="flex items-center gap-4 p-5 md:p-6 border-b border-border bg-background hover:bg-secondary/40 transition-colors"
+      >
+        {track.coverUrl ? (
+          <img
+            src={track.coverUrl}
+            alt={track.title}
+            className="w-14 h-14 object-cover shadow-sm shrink-0"
+          />
+        ) : (
+          <div className="w-14 h-14 bg-secondary border border-border flex items-center justify-center shrink-0">
+            <BookOpen className="w-5 h-5 text-primary" />
+          </div>
+        )}
+        <div className="flex-1 min-w-0">
+          <span className="text-[10px] font-bold tracking-widest uppercase text-accent block mb-0.5">
+            Audiobook
+          </span>
+          <h4 className="text-sm md:text-base font-serif font-bold text-primary leading-snug line-clamp-2">
+            {track.title}
+          </h4>
+          {track.description && (
+            <p className="text-xs text-muted-foreground mt-0.5">{track.description}</p>
+          )}
+        </div>
+        {track.audibleUrl && (
+          <a
+            href={track.audibleUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-accent hover:text-primary transition-colors shrink-0"
+          >
+            Audible
+            <ExternalLink className="w-3 h-3" />
+          </a>
+        )}
+      </motion.div>
+    );
+  }
+
+  // ── Coming Soon (no audio URL) ─────────────────────────────────────────────
+  if (!track.soundcloudUrl && !track.audioUrl) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.04 }}
+        className="flex items-center gap-4 p-5 md:p-6 border-b border-border bg-background opacity-50"
+      >
+        <div className="w-10 h-10 rounded-full border-2 border-dashed border-muted-foreground flex items-center justify-center shrink-0">
+          <Music2 className="w-4 h-4 text-muted-foreground" />
+        </div>
+        <div>
+          <span className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground block mb-0.5">
+            {track.category}
+          </span>
+          <h4 className="text-base font-serif font-bold text-muted-foreground">{track.title}</h4>
+          <p className="text-xs text-muted-foreground">Coming soon</p>
+        </div>
+      </motion.div>
+    );
+  }
+
+  // ── SoundCloud track — facade → expand on click ────────────────────────────
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.04 }}
+      className={`border-b border-border transition-colors ${
+        expanded ? "bg-primary/5" : "bg-background hover:bg-secondary/40"
+      }`}
+    >
+      {/* Facade row */}
+      <div
+        className="flex items-center gap-4 p-5 md:p-6 cursor-pointer"
+        onClick={() => setExpanded(true)}
+      >
+        {/* Play button */}
+        <button
+          aria-label={`Play ${track.title}`}
+          className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-transform hover:scale-105"
+          style={{ background: expanded ? "hsl(8, 75%, 50%)" : "hsl(152, 42%, 22%)" }}
+          onClick={(e) => { e.stopPropagation(); setExpanded(true); }}
+        >
+          <Play className="w-4 h-4 text-white ml-0.5" fill="white" />
+        </button>
+
+        <div className="flex-1 min-w-0">
+          <span className="text-[10px] font-bold tracking-widest uppercase text-accent block mb-0.5">
+            {track.category}
+          </span>
+          <h4 className="text-base md:text-lg font-serif font-bold text-primary truncate">
+            {track.title}
+          </h4>
+        </div>
+
+        {track.duration && (
+          <span className="text-xs text-muted-foreground font-mono shrink-0">
+            {track.duration}
+          </span>
+        )}
+      </div>
+
+      {/* Lazy-loaded SoundCloud player — only mounts when expanded */}
+      {expanded && track.soundcloudUrl && (
+        <div className="px-5 md:px-6 pb-5">
+          <iframe
+            width="100%"
+            height="166"
+            scrolling="no"
+            frameBorder="no"
+            allow="autoplay"
+            src={scEmbedUrl(track.soundcloudUrl)}
+            className="w-full"
+          />
+        </div>
+      )}
+    </motion.div>
+  );
+}
+
+// ── Main Section ──────────────────────────────────────────────────────────────
 export function AudioSamples() {
   const [activeCategory, setActiveCategory] = useState("All");
-  const [activeTrackId, setActiveTrackId] = useState<string | null>(null);
 
   const filteredTracks = activeCategory === "All"
     ? audioTracks
@@ -39,7 +178,6 @@ export function AudioSamples() {
             </motion.h2>
           </div>
 
-          {/* Filter tabs */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -63,135 +201,9 @@ export function AudioSamples() {
         </div>
 
         {/* Track list */}
-        <div className="flex flex-col gap-0">
+        <div className="border-t border-border">
           {filteredTracks.map((track, i) => (
-            <motion.div
-              key={track.id}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.04 }}
-            >
-              {/* ── Waveform player (tracks with hosted audioUrl) ── */}
-              {track.audioUrl && (
-                <div
-                  className={`flex flex-col gap-3 p-5 md:p-6 border-b border-border transition-colors ${
-                    activeTrackId === track.id
-                      ? "bg-primary/5 border-l-2 border-l-primary"
-                      : "bg-background hover:bg-secondary/50"
-                  }`}
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <span className="text-[10px] font-bold tracking-widest uppercase text-accent block mb-0.5">
-                        {track.category}
-                      </span>
-                      <h4 className="text-base md:text-lg font-serif font-bold text-primary leading-snug">
-                        {track.title}
-                      </h4>
-                    </div>
-                  </div>
-                  <WaveformPlayer
-                    audioUrl={track.audioUrl}
-                    isActive={activeTrackId === track.id}
-                    onActivate={() => setActiveTrackId(track.id)}
-                    onDeactivate={() => setActiveTrackId(null)}
-                  />
-                </div>
-              )}
-
-              {/* ── SoundCloud link card (long-form shows / no hosted file) ── */}
-              {!track.audioUrl && track.soundcloudUrl && (
-                <div className="flex items-center gap-4 p-5 md:p-6 border-b border-border bg-background hover:bg-secondary/50 transition-colors">
-                  <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
-                    style={{ background: "hsl(152, 42%, 22%)" }}
-                  >
-                    <Music2 className="w-4 h-4 text-white" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <span className="text-[10px] font-bold tracking-widest uppercase text-accent block mb-0.5">
-                      {track.category}
-                    </span>
-                    <h4 className="text-base font-serif font-bold text-primary truncate">
-                      {track.title}
-                    </h4>
-                    {track.duration && (
-                      <span className="text-xs text-muted-foreground font-mono">
-                        {track.duration}
-                      </span>
-                    )}
-                  </div>
-                  <a
-                    href={track.soundcloudUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-accent hover:text-primary transition-colors shrink-0"
-                    onClick={e => e.stopPropagation()}
-                  >
-                    Listen
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                </div>
-              )}
-
-              {/* ── Audiobook card ── */}
-              {track.category === "Audiobooks" && !track.soundcloudUrl && !track.audioUrl && (
-                <div className="flex items-center gap-4 p-5 md:p-6 border-b border-border bg-background group hover:bg-secondary/50 transition-colors">
-                  {track.coverUrl ? (
-                    <img
-                      src={track.coverUrl}
-                      alt={track.title}
-                      className="w-14 h-14 object-cover shadow-sm shrink-0"
-                    />
-                  ) : (
-                    <div className="w-14 h-14 bg-secondary border border-border flex items-center justify-center shrink-0">
-                      <BookOpen className="w-5 h-5 text-primary" />
-                    </div>
-                  )}
-                  <div className="flex-1 min-w-0">
-                    <span className="text-[10px] font-bold tracking-widest uppercase text-accent block mb-0.5">
-                      Audiobook
-                    </span>
-                    <h4 className="text-sm md:text-base font-serif font-bold text-primary leading-snug line-clamp-2">
-                      {track.title}
-                    </h4>
-                    {track.description && (
-                      <p className="text-xs text-muted-foreground mt-0.5">{track.description}</p>
-                    )}
-                  </div>
-                  {track.audibleUrl && (
-                    <a
-                      href={track.audibleUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-accent hover:text-primary transition-colors shrink-0"
-                    >
-                      Audible
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
-                </div>
-              )}
-
-              {/* ── Coming soon (VO / Emcee with no audio) ── */}
-              {!track.audioUrl && !track.soundcloudUrl && track.category !== "Audiobooks" && (
-                <div className="flex items-center gap-4 p-5 md:p-6 border-b border-border bg-background opacity-50">
-                  <div
-                    className="w-10 h-10 rounded-full border-2 border-dashed border-muted-foreground flex items-center justify-center shrink-0"
-                  >
-                    <Music2 className="w-4 h-4 text-muted-foreground" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground block mb-0.5">
-                      {track.category}
-                    </span>
-                    <h4 className="text-base font-serif font-bold text-muted-foreground">{track.title}</h4>
-                    <p className="text-xs text-muted-foreground">Coming soon</p>
-                  </div>
-                </div>
-              )}
-            </motion.div>
+            <TrackRow key={track.id} track={track} index={i} />
           ))}
         </div>
 
