@@ -71,8 +71,9 @@
   .hero .kw{font-weight:700;color:var(--fg);font-size:1rem;margin-bottom:16px;letter-spacing:.01em}
   .hero p.lead{font-size:1.1rem;color:var(--muted);margin-bottom:24px;max-width:34ch}
   .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-  .reel{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:4px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.35)}
-  .reel iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .hero-photo{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:4px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);display:block}
+  .reel-feature{position:relative;max-width:880px;margin:28px auto 0;aspect-ratio:16/9;background:#000;border-radius:4px;overflow:hidden;box-shadow:0 30px 60px -22px rgba(0,0,0,.4)}
+  .reel-feature iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   .reel-tag{position:absolute;top:12px;left:12px;z-index:2;background:var(--orange);color:#fff;font-size:.6rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:5px 10px;border-radius:2px}
 
   /* stat bar */
@@ -106,7 +107,7 @@
   .award b{color:var(--orange)}
 
   /* gallery */
-  .gallery{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
   .gallery img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:4px;display:block}
 
   .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
@@ -173,11 +174,20 @@
       <a href="#reel" class="btn btn-lg btn-outline">Watch the Reel</a>
     </div>
   </div>
-  <div class="reel" id="reel">
+  <div>
+    <img class="hero-photo" src="emcee-4.jpg" alt="Mark Schectman emceeing a corporate awards event on stage in Dallas–Fort Worth">
+  </div>
+</div></div></section>
+
+<!-- Reel -->
+<section class="sec reel-sec" id="reel" style="padding:52px 0"><div class="wrap">
+  <p class="eyebrow" style="text-align:center">Watch</p>
+  <h2 style="text-align:center">See me <em>in action</em>.</h2>
+  <div class="reel-feature">
     <span class="reel-tag">▶ Hosting Reel</span>
     <iframe src="https://www.youtube.com/embed/aITwBX6XeUg?rel=0&modestbranding=1" title="Mark Schectman hosting reel" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
-</div></div></section>
+</div></section>
 
 <!-- Trusted by -->
 <section class="trusted">
@@ -206,7 +216,6 @@
   <p class="eyebrow">On Stage</p>
   <h2>In the <em>moment</em>.</h2>
   <div class="gallery">
-    <img src="emcee-4.jpg" alt="Mark Schectman emceeing a corporate awards event" loading="lazy">
     <img src="emcee-1.jpg" alt="Mark Schectman hosting on stage at ALT 103.7" loading="lazy">
     <img src="emcee-3.jpg" alt="Mark Schectman hosting a Verizon brand event" loading="lazy">
     <img src="emcee-2.jpg" alt="Mark Schectman hosting a live in-studio artist session" loading="lazy">
