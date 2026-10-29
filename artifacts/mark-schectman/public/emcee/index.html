@@ -208,6 +208,13 @@
   </div>
 
   <div class="clip-row" style="margin-top:34px">
+    <div class="clip" data-video="culturemap.mp4" data-orient="portrait">
+      <div class="thumb">
+        <img src="culturemap-poster.jpg" alt="Mark Schectman hosting the CultureMap Tastemaker Awards in Dallas" loading="lazy">
+        <div class="play"><div class="pc"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      </div>
+      <p class="ctitle">Hosting the CultureMap Tastemaker Awards</p>
+    </div>
     <div class="clip" data-yt="AihkJ7wZxNc" data-orient="portrait">
       <div class="thumb">
         <img src="https://i.ytimg.com/vi/AihkJ7wZxNc/oardefault.jpg" alt="Mark Schectman hosting a game show activation" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/AihkJ7wZxNc/hqdefault.jpg'">
@@ -355,7 +362,7 @@
 <div class="vmodal" id="vmodal">
   <div class="inner" id="vinner">
     <button class="x" id="vx" aria-label="Close video">×</button>
-    <iframe id="vframe" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    <div id="vcontent" style="width:100%;height:100%"></div>
   </div>
 </div>
 
@@ -404,13 +411,21 @@
     }
   });
 
-  // Video clip modal
+  // Video clip modal (handles self-hosted video + YouTube)
   (function(){
-    var modal=document.getElementById('vmodal'),inner=document.getElementById('vinner'),frame=document.getElementById('vframe');
+    var modal=document.getElementById('vmodal'),inner=document.getElementById('vinner'),content=document.getElementById('vcontent');
     if(!modal)return;
-    function open(id,orient){inner.className='inner'+(orient==='landscape'?' landscape':'');frame.src='https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1';modal.classList.add('open');document.body.style.overflow='hidden';}
-    function close(){modal.classList.remove('open');frame.src='';document.body.style.overflow='';}
-    document.querySelectorAll('.clip').forEach(function(c){c.addEventListener('click',function(){open(c.dataset.yt,c.dataset.orient);});});
+    function openClip(c){
+      inner.className='inner'+(c.dataset.orient==='landscape'?' landscape':'');
+      if(c.dataset.video){
+        content.innerHTML='<video src="'+c.dataset.video+'" controls autoplay playsinline style="width:100%;height:100%;border-radius:4px;background:#000;object-fit:contain"></video>';
+      } else {
+        content.innerHTML='<iframe src="https://www.youtube.com/embed/'+c.dataset.yt+'?autoplay=1&rel=0&modestbranding=1" style="width:100%;height:100%;border:0;border-radius:4px" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+      }
+      modal.classList.add('open');document.body.style.overflow='hidden';
+    }
+    function close(){modal.classList.remove('open');content.innerHTML='';document.body.style.overflow='';}
+    document.querySelectorAll('.clip').forEach(function(c){c.addEventListener('click',function(){openClip(c);});});
     document.getElementById('vx').addEventListener('click',close);
     modal.addEventListener('click',function(e){if(e.target===modal)close();});
     document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
